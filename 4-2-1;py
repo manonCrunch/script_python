@@ -1,0 +1,44 @@
+#!/usr/bin/env python
+# -*-coding:utf-8-*
+
+import os
+from random import randrange
+
+nombre_de_coup = 0
+bol_d1, bol_d2, bol_d3 = True, True, True
+
+def choix_d(reponse, i):
+    while 1 :
+        if (reponse == "n"):
+            return True, i
+        elif(reponse == "o"):
+            i += 1
+      return False, i
+	else:
+	    print "Vous n'avez pas rentrez o ou n \n o = oui \n n = non \n"
+            reponse = raw_input("oui ou non : ")
+
+jet = raw_input("\nAppuyez sur entrer pour lancer les Dés ......\n")
+    
+while nombre_de_coup < 3 :
+    nombre_de_coup += 1
+    i = 0
+    if bol_d1 == True :
+        d1 = randrange(1,7)
+    if bol_d2 == True :
+        d2 = randrange(1,7)
+    if bol_d3 == True :
+        d3 = randrange(1,7)
+    if nombre_de_coup == 3 :
+        break
+    print "\nDé numero 1 : ", d1, "\nDé numero 2 : ", d2, "\nDé numero 3 : ", d3, "\n"
+    reponse = raw_input("garder le Dé 1 ?  rentrez o ou n\n")
+    bol_d1, i = choix_d(reponse, i)
+    reponse = raw_input("garder le Dé 2 ?  rentrez o ou n\n")
+    bol_d2, i = choix_d(reponse, i)
+    reponse = raw_input("garder le Dé 3 ?  rentrez o ou n\n")
+    bol_d3, i = choix_d(reponse, i)
+    if i == 3 :
+        break
+
+print "Resultat : \nDé numero 1 : ", d1, "\nDé numero 2 : ", d2, "\nDé numero 3 : ", d3, "\n"               
