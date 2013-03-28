@@ -66,6 +66,7 @@ class ObPersonalTheme :
 		else:
 			''' Déplacement dans le dossier sélectionné'''
 			chdir('{0}'.format(choix))
+			''' Appel a la class Fonctions , restauration_theme'''
 			copie = Fonctions()
 			copie.restauration_theme()
 		chdir(EMPLACEMENT)
