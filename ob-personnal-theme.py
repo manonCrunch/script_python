@@ -30,27 +30,21 @@ chdir(EMPLACEMENT)
 
 '''fenêtre principal '''
 class ObPersonalTheme :
-	'''------------Fonctions appelées au clique d'un bouton'----------'''
 	
 	def Quitter(self, widget):
 		gtk.main_quit()
 		
 	def sauvegarde(self, widget):
-		'''Appel a la Classe ChoixNomTheme'''
 		nom = ChoixNomTheme(self, "sauvegarde")
 		self.boutonSauvegarde.set_label("Sauvegarde Réussie")
 
 	def exportation_theme(self, widget):
-		'''Appel a la Classe ChoixNomTheme'''
 		nom = ChoixNomTheme(self, "exportation")
 		
 	def importation_theme(self, widget):
-		'''Appel a la class SelecteurFichier'''
 		nom_theme_import = SelecteurFichier(self)
 		
 	def listeTheme(self, listeDeroulante):
-		'''Fonction pour lister les fichiers a ajouter au menu déroulant'''
-		'''on liste les fichiers contenu dans le dossier sauvegarde'''
 		themes_dispo = os.listdir(EMPLACEMENT)
 		for e in themes_dispo:
 			'''si c'est un dossier'''
@@ -59,14 +53,11 @@ class ObPersonalTheme :
 				listeDeroulante.append_text(e)
 				
 	def theme_choix(self, listeDeroulante):
-		'''Fonction appelée au choix réalisé dans la liste déroulante'''
 		choix = listeDeroulante.get_active_text()
 		if (choix == "Thémes Disponible"):
 			pass 
 		else:
-			''' Déplacement dans le dossier sélectionné'''
 			chdir('{0}'.format(choix))
-			''' Appel a la class Fonctions , restauration_theme'''
 			copie = Fonctions()
 			copie.restauration_theme()
 		chdir(EMPLACEMENT)
