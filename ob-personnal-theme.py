@@ -20,12 +20,10 @@ THEME_PATHS = ['.config/tint2/tint2rc', '.config/nitrogen/bg-saved.cfg', '.conky
 CONFIG_PATHS = ['.config/openbox/autostart', '.config/openbox/menu.xml']
 				
 chdir(HOME_FOLDER)
-
 try:
 	os.mkdir(".obpersonnal-theme")
 except OSError:
-	pass 
-		
+	pass 		
 chdir(EMPLACEMENT)
 
 
