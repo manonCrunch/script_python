@@ -28,7 +28,7 @@ except OSError:
 		
 chdir(EMPLACEMENT)
 
-'''fenêtre principal '''
+
 class ObPersonalTheme :
 	
 	def Quitter(self, widget):
@@ -47,9 +47,7 @@ class ObPersonalTheme :
 	def listeTheme(self, listeDeroulante):
 		themes_dispo = os.listdir(EMPLACEMENT)
 		for e in themes_dispo:
-			'''si c'est un dossier'''
 			if (os.path.isdir(e) == True):
-				'''on l'ajoute a la liste deroulante'''
 				listeDeroulante.append_text(e)
 				
 	def theme_choix(self, listeDeroulante):
@@ -58,8 +56,7 @@ class ObPersonalTheme :
 			pass 
 		else:
 			chdir('{0}'.format(choix))
-			copie = Fonctions()
-			copie.restauration_theme()
+			fonctions.restauration_theme()
 		chdir(EMPLACEMENT)
 			
 	def saveConfig(self, widget):
@@ -68,9 +65,8 @@ class ObPersonalTheme :
 		except OSError:
 			pass 
 		chdir(NOM)
-		copieTheme = Fonctions()
-		copieTheme.sauvegarde_config()
-		copieTheme.sauvegarde_theme()
+		fonctions.sauvegarde_config()
+		fonctions.sauvegarde_theme()
 		self.boutonSaveConfig.set_label("Sauvegarde Réussie")
 		chdir(EMPLACEMENT)
 		
@@ -79,9 +75,8 @@ class ObPersonalTheme :
 			chdir(NOM)
 		except OSError:
 			self.boutonRestaurationConfig.set_label("Pas de sauvegarde")
-		copieTheme = Fonctions()
-		copieTheme.restauration_config()
-		copieTheme.restauration_theme()
+		fonctions.restauration_config()
+		fonctions.restauration_theme()
 		chdir(EMPLACEMENT)
 		
 	def saveConfTargz(self, widget):
@@ -92,9 +87,7 @@ class ObPersonalTheme :
 		nom_theme = NOM 
 		self.savetargz = Exportation_thread(self, nom_theme)
 		self.savetargz.start()
-		
-	'''------------------Mise en place de la fenêtre et des boutons ------'''
-							
+								
 	def __init__(self):
 		
 		maFenetre = gtk.Window()
@@ -176,7 +169,6 @@ class ObPersonalTheme :
 		maFenetre.show_all()
 		
 
-'''Fonctions Général'''
 class Fonctions:
 	
 	def sauvegarde_theme(self):
@@ -216,8 +208,7 @@ class Fonctions:
 				pass
 		self.restauration_theme()
 		
-		
-'''choix du nom du theme (sauvergarde et exportation)'''		
+				
 class ChoixNomTheme:
 	
 	def __init__(self, widget, choix):
@@ -256,15 +247,13 @@ class ChoixNomTheme:
 			self.exportation = Exportation_thread(self, nom_theme)
 			self.exportation.start()
 		if (self.choix == "sauvegarde"):
-			sauvegarde = Fonctions()
-			sauvegarde.sauvegarde_theme()
+			fonctions.sauvegarde_theme()
 			chdir(EMPLACEMENT)
 			
 	def quitter(self, widget, nom_theme_export):
 		self.fenetre.destroy()
 		
-		
-'''Exportation theme'''		
+			
 class Exportation_thread(threading.Thread):
 	 
 	def __init__ (self, fenetre, nom_theme):
@@ -283,10 +272,10 @@ class Exportation_thread(threading.Thread):
 		fenetre2.show_all()
 		
 		etiquette.set_text("\nCopie des fichiers\nde configuration\n")
-		sauvegarde = Fonctions()
+		
 		if (self.nom_theme == NOM):
-			sauvegarde.sauvegarde_config()
-		sauvegarde.sauvegarde_theme()
+			fonctions.sauvegarde_config()
+		fonctions.sauvegarde_theme()
 		
 		f_config_wall = open('{0}/{1}'.format(HOME_FOLDER,THEME_PATHS[1]), 'r')
 		for ligne in f_config_wall:
@@ -364,8 +353,7 @@ class Exportation_thread(threading.Thread):
 		
 		fenetre2.destroy()
 		
-		
-'''Selecteur fichier , choix du theme a importer'''		
+			
 class SelecteurFichier:
 	
 	def destroy(self, widget):
@@ -387,8 +375,7 @@ class SelecteurFichier:
 		self.selectfichier.set_filename("manon")
 		self.selectfichier.show()
 		
-		
-'''Importation du theme selectionné avec SelecteurFichier'''		 
+				 
 class ImportationThread(threading.Thread):
 	def __init__ (self, widget,  nomThemeImport):
 		threading.Thread.__init__ (self, target=self)
@@ -470,8 +457,7 @@ class ImportationThread(threading.Thread):
 			except OSError:
 				pass
 				
-		miseEnPlace = Fonctions()
-		miseEnPlace.restauration_theme()
+		fonctions.restauration_theme()
 		
 		chdir(HOME_FOLDER)
 	
@@ -523,8 +509,7 @@ class ImportationThread(threading.Thread):
 		chdir(EMPLACEMENT)
 		fenetre2.destroy()
 		
-		
-'''Pour lancer tint2 thread'''		
+				
 class Tint2Thread(threading.Thread):
 	
 	def __init__ (self, tint2):
@@ -534,5 +519,7 @@ class Tint2Thread(threading.Thread):
 		
 		
 if __name__ == "__main__":
+	
+	fonctions = Fonctions()
 	ObPersonalTheme()
 	gtk.main()
