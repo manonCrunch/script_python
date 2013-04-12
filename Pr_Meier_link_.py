@@ -9,12 +9,11 @@ from time import sleep
 
 HOME_FOLDER = os.path.expanduser('~')
 EMPLACEMENT = os.path.join(HOME_FOLDER, ".obpersonnal-theme/")
-
 THEME_PATHS = ['.config/nitrogen/bg-saved.cfg', '.conkyrc']
 
 chdir(EMPLACEMENT)
 
-themesDispo = [nom for nom  in os.listdir(EMPLACEMENT) if os.path.isdir(nom) == True]
+themesDispo = [nom for nom  in os.listdir(EMPLACEMENT) if os.path.isdir(nom) == True]#liste thèmes dispo
 
 def changement_theme():
     for fichierCopie in [os.path.join(HOME_FOLDER, fichier) for fichier in THEME_PATHS]:
