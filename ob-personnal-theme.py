@@ -20,10 +20,10 @@ THEME_PATHS = ['.config/tint2/tint2rc', '.config/nitrogen/bg-saved.cfg', '.conky
 CONFIG_PATHS = ['.config/openbox/autostart', '.config/openbox/menu.xml']
 				
 chdir(HOME_FOLDER)
-try:
-	os.mkdir(".obpersonnal-theme")
-except OSError:
-	pass 		
+
+if os.path.isdir(".obpersonnal-theme") != True: #si le dossier n'est pas présent
+	os.mkdir(".obpersonnal-theme") 
+	
 chdir(EMPLACEMENT)
 
 
@@ -33,22 +33,21 @@ class ObPersonalTheme :
 		gtk.main_quit()
 		
 	def sauvegarde(self, widget):
-		nom = ChoixNomTheme(self, "sauvegarde")
+		ChoixNomTheme(self, "sauvegarde")
 		self.boutonSauvegarde.set_label("Sauvegarde Réussie")
 
 	def exportation_theme(self, widget):
-		nom = ChoixNomTheme(self, "exportation")
+		ChoixNomTheme(self, "exportation")
 		
 	def importation_theme(self, widget):
-		nom_theme_import = SelecteurFichier(self)
+		SelecteurFichier(self)
 		
-	def listeTheme(self, listeDeroulante):
-		themes_dispo = os.listdir(EMPLACEMENT)
+	def listeTheme(self, listeDeroulante): #liste les thèmes dispo
+		themes_dispo = [nom for nom  in os.listdir(EMPLACEMENT) if os.path.isdir(nom) == True]
 		for e in themes_dispo:
-			if (os.path.isdir(e) == True):
-				listeDeroulante.append_text(e)
+			listeDeroulante.append_text(e) #ajout liste déroulante
 				
-	def theme_choix(self, listeDeroulante):
+	def theme_choix(self, listeDeroulante): #recuperation du théme choisi 
 		choix = listeDeroulante.get_active_text()
 		if (choix == "Thémes Disponible"):
 			pass 
